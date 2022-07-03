@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" dir="rtl">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Sign up page">
+    <title>ثبت نام</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css"
+          integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'signup/css/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/fonts.css' %}">
+</head>
+
+<body class="text-center">
+<form id="formSignup" class="form-signup" method="POST" action="{% url 'signup' %}">
+    {% csrf_token %}
+    <div class="container mt-3">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h1 class="title">ثبت نام</h1>
+            </div>
+        </div>
+        <!-- Username field -->
+        <div class="row mb-2">
+            <div class="col-md-2 field-label">
+                <label for="username">نام کاربری</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="username" name="username" value="{{ serializer.data.username }}" required>
+                <small id="usernameAlert" class="form-text text-nowrap mt-2 text-md-left ml-3"
+                       style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </small>
+            </div>
+            <div class="col-md-2 field-label">
+                <label for="email">ایمیل</label>
+            </div>
+            <div class="col-md-4 mb-4">
+                <input type="text" id="email" name="email"
+                       value="{{ serializer.data.email }}" required>
+                <small id="emailAlert" class="form-text text-nowrap mt-2 text-md-left ml-3"
+                       style="display: none;">
+                    <i class="fas fa-info-circle"></i>
+
+                </small>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-2 field-label">
+                <label class="p" for="password">رمز عبور</label>
+            </div>
+             <div class="col-md-4">
+                <input type="password" id="password" name="password" class="form-text text-nowrap mt-2 text-md-left ml-3" required
+                       style="background-color:#BEBEBD">
+                  <small id="passwordAlert" class="form-text text-nowrap mt-2 text-md-left ml-3"
+                       style="display: none;">
+                    <i class="fas fa-info-circle"></i>
+
+                </small>
+            </div>
+        </div>
+
+        <button id="submit" class="btn btn-lg btn-warning btn-block sign-up-button mb-2" type="submit">ثبت نام</button>
+        <p class="footer-p mt-2 mb-3">
+            حساب کاربری دارید؟
+            <span><a href="{% url 'signin' %}">وارد شوید.</a></span>
+        </p>
+        {% for field in serializer %}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <small id="error" class="h6 form-text text-nowrap vazir-bold" style="font-weight: bolder;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        {{ error }}
+                    </small>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+</form>
+{% block JSfile %}
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- base validation js -->
+    <script src="{% static 'signup/js/signup.js' %}"></script>
+{% endblock %}
+</body>
+
+</html>

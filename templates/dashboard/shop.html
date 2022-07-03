@@ -1,0 +1,62 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block CSSfiles %}
+    <link rel="stylesheet" href="{% static 'dashboard/css/shopping.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="shopping">
+        <div class="shopping-content">
+            <div class="shopping-title">
+                <h1>
+                   محصولات
+                </h1>
+            </div>
+            <hr>
+                <form action="" id="searchForm">
+                    <div class="row form-search">
+                        <div class="col-md-4 mb-2">
+                            <select class="custom-select" id="searchCategory" data-search="category">
+                                <option value="none">دسته بندی</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}"  {% if request.GET.category|add:"0" == category.id %}
+                                            selected {% endif %} >{{ category.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- Select Lessons -->
+                         <div class="col-md-4 mb-2">
+                               <input id="searchFromAmount" type="text" class="form-control" data-search="fromAmount"
+                                       placeholder="حداقل مبلغ">
+                        </div>
+                        <div class="col-md-4 mb-2">
+                               <input id="searchToAmount" type="text" class="form-control" data-search="toAmount"
+                                       placeholder="حداکثر مبلغ">
+                        </div>
+                    <div class="col-md-4 mb-2">
+                            <select class="custom-select" id="searchOrder" data-search="ordering">
+                                <option value="none">ترتیب</option>
+                                <option value="-created_at">به ترتیب جدید ترین</option>
+                                <option value="amount">به ترتیب ارزان ترین</option>
+                                <option value="-amount">به ترتیب گران ترین</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </form>
+                <div class="card-group">
+                </div>
+                <div class="pagination-wrapper mt-2 text-center" style="display: none">
+                    <div class="pagination">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+<!-- JS files -->
+{% block JSfile %}
+    <!-- shopping config js -->
+    <script src="{% static 'dashboard/js/shopping/shopping.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,9 @@
+Django
+django-filter
+django-mysql
+djangorestframework
+Jinja2
+mysqlclient
+Pillow
+drf-yasg
+

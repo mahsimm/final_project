@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" dir="rtl">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Sign in page">
+    <meta name="author" content="Tabbesh website">
+    <title>ورود</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css"
+          integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'signin/css/signin.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/fonts.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+</head>
+
+<body class="text-center">
+<form id="signInForm" class="sign-in-form" method="POST"
+      action="{% url 'signin' %}{% if request.GET.next %}?{{ request.META.QUERY_STRING }}{% endif %}"
+      enctype='application/json'>
+    {% csrf_token %}
+    <h1 class="title">ورود</h1>
+    <div class="container">
+        <!-- Email OR Username Input -->
+        <div class="row" style="margin:10px">
+            <label class="p" for="username"> نام کاربری</label>
+            <input type="text" id="username" name="username" class="form-control"
+                   placeholder="نام کاربری خود را وارد کنید ..." required autofocus>
+        </div>
+        <!-- Password Input -->
+        <div class="row" style="margin:10px; margin-bottom:20px">
+            <label class="p" for="password">رمز عبور</label>
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="رمز عبور خود را با دقت وارد کنید ..." required style="background-color:#BEBEBD">
+        </div>
+    </div>
+    <button id="submit" class="btn btn-lg btn-warning btn-block sign-in-button" type="submit">ورود</button>
+    <p class="footer-p mt-2"> حساب کاربری ندارید؟ <span><a href="{% url 'signup' %}">ثبت نام کنید</a></span></p>
+    {% if error %}
+        <small class="form-text mb-1" style="font-family: 'Vazir_Bold'; color: #9d0b0b;">
+            <i class="fas fa-exclamation-triangle"></i>
+            {{ error }}
+        </small>
+    {% endif %}
+
+</form>
+
+
+{% block JSfile %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"
+            integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k"
+            crossorigin="anonymous"></script>
+    <!-- base validation js -->
+    <script src="{% static 'signin/js/signin.js' %}"></script>
+{% endblock %}
+
+</body>
+
+</html>

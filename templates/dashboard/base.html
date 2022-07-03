@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html dir="rtl">
+{% load static %}
+{% load have_role %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{% endblock %}</title>
+    <!-- CSS files -->
+    <link rel="stylesheet" href="{% static "dashboard/css/bootstrap-theme.css" %}">
+    <link rel="stylesheet" href="{% static 'dashboard/css/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    {% block CSSfiles %}
+    {% endblock %}
+
+
+</head>
+
+<body>
+<div class="wrapper">
+        {% block sidebar %}
+            <nav id="sidebar">
+                <div class="row account-title">
+
+                <div id="sidebarMenus" class="container">
+                    <div id="shopMenu" class="row sidebar-menu">
+                        <a href="{% url 'shop' %}">فروشگاه</a>
+                    </div>
+                    {% is_admin request.user as admin %}
+                    {% if admin %}
+                        <hr>
+                        <div id="adminMenu" class="row sidebar-menu">
+                            <a href="{% url 'admin:index' %}" target="_blank">صفحه ادمین</a>
+                        </div>
+                    {% endif %}
+                </div>
+                </div>
+            </nav>
+        {% endblock %}
+
+    <div id="content">
+
+        <nav id="nav" class="navbar navbar-inverse sticky-top">
+            <div id="nav-items" class="container-fluid ">
+                <div id="nav-menu" style="display: inline-block;">
+                    <ul class="nav navbar-nav navbar-right ">
+                      {% comment %}  <li class="text-nowrap"><a href="{% url 'profile' %}"> صفحه ی
+                            پروفایل</a>
+                        </li>{% endcomment %}
+                        <li><a href="{% url 'signout' %}">خروج</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="{% static 'dashboard/js/base.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<script
+        src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"
+        integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k"
+        crossorigin="anonymous">
+</script>
+
+{% block JSfile %}
+{% endblock %}
+
+</body>
+</html>
